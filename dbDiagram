@@ -1,0 +1,89 @@
+
+Table vendor {
+  vendor_id int [pk]
+  full_name varchar
+  email varchar
+  phone_no int
+  address varchar
+  gender varchar
+}
+
+
+Table user {
+  user_id int [pk]
+  name varchar
+  email varchar
+  password varchar
+  phone_no int
+  address varchar
+  gender varchar
+
+  
+  
+}
+
+
+Table product {
+  vendor int [ref: > vendor.vendor_id]
+  product_name varchar
+  product_id int [pk]
+  model_number varchar
+  status varchar
+  min_rent_price varchar
+  max_rent_price varchar
+  
+  
+
+  
+}
+
+Table payment {
+  payment_id int [pk]
+  amount varchar
+  payment_mode varchar
+  delivery_id int [ref:- delivery.delivery_id]
+  
+}
+
+Table rental_order {
+  order_id int [pk]
+  payment_id int [ref: - payment.payment_id]
+  order_date varchar
+  user_id int [ref: > user.user_id]
+  
+  delivery_address varchar
+  
+}
+
+Table delivery_person {
+  person_id int [pk]
+  name varchar
+  email varchar
+  phone_no int
+  address varchar
+  gender varchar  
+}
+
+Table delivery {
+  date varchar
+  delivery_id int [pk]
+  user_id int [ref:< user.user_id]
+  issue varchar
+  delivery_status varchar
+  person_id int [ref:> delivery_person.person_id]
+  
+}
+
+Table review {
+  product_id int [ref: <> product.product_id]
+  user_id int [ref: <> user.user_id]
+  rating int
+  comment varchar
+  
+}
+
+Table product_rental_order {
+  product_id int [ref: <> product.product_id]
+  order_id int  [ref: <> rental_order.order_id]
+}
+
